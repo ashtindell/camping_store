@@ -4,7 +4,7 @@
   <h4>Search: <input type="text" ng-model="searchText"></h4>
   <br/>
   <div class="row">
-    <table class="table col-md-12">
+    <table class="table">
       <tr>
         <th>Category</th>
         <th>Description</th>
@@ -12,9 +12,8 @@
         <th>Quantity</th>
         <th>Total</th>
         <th>Action</th>
-        <th></th>
       </tr>
-      <tr ng-repeat="item in inventory | filter: searchText | orderBy: 'category' ">
+      <tr class="animate-repeat" ng-repeat="item in inventory | filter: searchText | orderBy: 'category' ">
         <td>{{ item.category }}</td>
         <td>{{ item.description }}</td>
         <td ng-class="{ 'on-sale' : item.onSale }">{{ item.price }}</td>
@@ -25,7 +24,7 @@
   </div>
   <div class="row">
     <h2>Your Cart:</h2>
-    <table class="table col-md-12">
+    <table class="table">
       <tr>
         <th>Quantity</th>
         <th>Description</th>
@@ -33,7 +32,7 @@
         <th>Total</th>
         <th>Action</th>
       </tr>
-      <tr ng-repeat="item in cart">
+      <tr class="animate-repeat" ng-repeat="item in cart">
         <td>{{ item.qty }}</td>          
         <td>{{ item.description }}</td>
         <td>{{ item.price }}</td>
@@ -41,12 +40,12 @@
         <td><button class="btn btn-danger" ng-click="deleteItem($index);">x</button></td>
       </tr>
     </table>
-
   </div>
   <div class="row">
-    <h3>Grand Total: {{ ( grandTotal() ? ( grandTotal() | currency) : "$0 " ) }}</h3>
+    <h2>Grand Total: {{ ( grandTotal() ? ( grandTotal() | currency) : "$0 " ) }}</h2>
   </div>
   <div class="row">
-    <h3><button class="btn btn-danger" ng-click="clearCart()">Clear Cart</button></h3>
+    <h2><button class="btn btn-danger" ng-click="clearCart()">Clear Cart</button></h2>
+    <br />
   </div>
 </div>
