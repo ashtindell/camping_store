@@ -1,23 +1,52 @@
-<div class="jumbotron">
-  <h1>'Allo, 'Allo!</h1>
-  <p class="lead">
-    <img src="images/yeoman.png" alt="I'm Yeoman"><br>
-    Always a pleasure scaffolding your apps.
-  </p>
-  <p><a class="btn btn-lg btn-success" ng-href="#">Splendid!<span class="glyphicon glyphicon-ok"></span></a></p>
-</div>
+<div class="container-fluid">
+  <h1>Welcome to the GA Camping Store</h1>
+  <br/>
+  <h4>Search: <input type="text" ng-model="searchText"></h4>
+  <br/>
+  <div class="row">
+    <table class="table col-md-12">
+      <tr>
+        <th>Category</th>
+        <th>Description</th>
+        <th>Price</th>
+        <th>Quantity</th>
+        <th>Total</th>
+        <th>Action</th>
+        <th></th>
+      </tr>
+      <tr ng-repeat="item in inventory | filter: searchText | orderBy: 'category' ">
+        <td>{{ item.category }}</td>
+        <td>{{ item.description }}</td>
+        <td ng-class="{ 'on-sale' : item.onSale }">{{ item.price }}</td>
+        <td><input type="number" min="0" class="qty" ng-model="item.qty"></td>
+        <td>{{ item.qty * item.price | currency }}</td>
+        <td><button class="btn btn-primary" ng-click="addItem(item);">Add</button></td></tr>
+    </table>
+  </div>
+  <div class="row">
+    <h2>Your Cart:</h2>
+    <table class="table col-md-12">
+      <tr>
+        <th>Quantity</th>
+        <th>Description</th>
+        <th>Price</th>
+        <th>Total</th>
+        <th>Action</th>
+      </tr>
+      <tr ng-repeat="item in cart">
+        <td>{{ item.qty }}</td>          
+        <td>{{ item.description }}</td>
+        <td>{{ item.price }}</td>
+        <td>{{ item.qty * item.price | currency }}</td>
+        <td><button class="btn btn-danger" ng-click="deleteItem($index);">x</button></td>
+      </tr>
+    </table>
 
-<div class="row marketing">
-  <h4>HTML5 Boilerplate</h4>
-  <p>
-    HTML5 Boilerplate is a professional front-end template for building fast, robust, and adaptable web apps or sites.
-  </p>
-
-  <h4>Angular</h4>
-  <p>
-    AngularJS is a toolset for building the framework most suited to your application development.
-  </p>
-
-  <h4>Karma</h4>
-  <p>Spectacular Test Runner for JavaScript.</p>
+  </div>
+  <div class="row">
+    <h3>Grand Total: {{ ( grandTotal() ? ( grandTotal() | currency) : "$0 " ) }}</h3>
+  </div>
+  <div class="row">
+    <h3><button class="btn btn-danger" ng-click="clearCart()">Clear Cart</button></h3>
+  </div>
 </div>
